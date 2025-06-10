@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Country Trivia!</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            background-image: linear-gradient(90deg, rgb(240, 244, 255) 0%, rgb(200, 239, 255) 44%, rgb(160, 234, 255) 100%);
+            color: rgb(0, 0, 0);
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: xx-large;
+            color: rgb(0, 0, 0);
+        }
+
+        h3 {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: x-large;
+            color: rgb(0, 0, 0);
+        }
+
+        h4 {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: large;
+            color: rgb(0, 0, 240);
+        }
+
+        .cusButton {
+            background-color: rgb(175, 215, 255);
+            border: 2px solid rgb(0, 0, 0);
+            color: black;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .cusButton:hover {
+            background-color: rgb(78, 178, 254);
+        }
+
+        .customTextbox {
+            padding: 10px;
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: 'Times New Roman', Times, serif;
+            width: 300px;
+            box-sizing: border-box;
+            background-color: rgb(175, 215, 255);
+        }
+    </style>
+    <script>
+
+
+        // Define global variables
+        let points = 0; // holds points collected and used in game to purchase hints
+        let hint1; // Given hint; often reffered to as 'question' in code
+        let hint2; // Hint bought using 2 points; often reffered to as 'additional hint' or simply 'hint' in code
+
+        // Arrays containing country names based on difficulty level
+        let easyArray = ['canada', 'mexico', 'france', 'germany', 'india', 'china', 'australia', 'italy', 'ireland', 'russia'];
+        let mediumArray = ['spain', 'morocco', 'egypt', 'japan', 'brazil', 'turkey', 'iran', 'indonesia', 'israel', 'greece'];
+        let hardArray = ['pakistan', 'malaysia', 'nigeria', 'poland', 'cuba', 'ethiopia', 'fiji', 'vietnam', 'mongolia', 'kenya'];
+        let eQArray = [];
+        let hQArray = [];
+
+        
+        // Hints for each country
+        // Easy hints
+        let cahint1 = "Over 75% of this country's population lives within 100 miles of its southern border.";
+        let cahint2 = "This is the largest country in North America, and the 2nd largest country on earth.";
+        let mxhint1 = "This country has the highest populated city in North America.";
+        let mxhint2 = "The majority of this country's residents speak Spanish.";
+        let frhint1 = "This country has the most visited city on earth.";
+        let frhint2 = "That city is most well known today as Paris.";
+        let dehint1 = "This country's GDP (measure of wealth) is the highest in europe, and 4th highest in the world.";
+        let dehint2 = "This country was home to the Berlin Wall, which was taken down in 1989.";
+        let inhint1 = "This country boasts a population which proudly speaks over 400 languages.";
+        let inhint2 = "This country very recently became the most populous country on earth.";
+        let cnhint1 = "This country is home to a very popular wall which spans 5,500 miles in the northern region of this country.";
+        let cnhint2 = "This country is the largest exporter of goods, and the production hub of many foreign companies.";
+        let auhint1 = "Over 90% of this country is covered in a vast desert, making this portion of the country uninhabitable.";
+        let auhint2 = "This country's seasons are the opposite from most of the world, due to being 'down under'.";
+        let ithint1 = "This country is known for its fashion, often nicknamed 'The fashion capital of the world.'";
+        let ithint2 = "This country's is also known for its various types of cheeses, and is the birthplace of pizza and pasta.";
+        let ishint1 = "This country is the birthplace of St. Patrick's Day.";
+        let ishint2 = "This island country is known for its Leprechauns, and 4 leaf clovers.";
+        let ruhint1 = "This country's population lives entirely in its western half, because the east is too cold.";
+        let ruhint2 = "This transcontinental country is the largest in the world, and has been at war for the last 2 years.";
+        // Medium hints
+        let eshint1 = "This country colonized most of the Americas, and was once ruled by Muslims about 1000 years ago.";
+        let eshint2 = "This country is the birthplace of Spanish.";
+        let mahint1 = "This country was the first to recognize the independence of the United States."
+        let mahint2 = "This country is in the northwestern corner of Africa, and has a population that is 99% muslim."
+        let eghint1 = "While this country is most famous for its pyramids, it is only 2nd place in total amount of pyramids."
+        let eghint2 = "This country is home to the most trafficked water canal in the world."
+        let jphint1 = "This country has 1 vending machine for every 24 people."
+        let jphint2 = "This island country is in east asia, and was previously bombed by the United States twice."
+        let brhint1 = "This country is home to the largest river in terms of width on earth."
+        let brhint2 = "This country is the largest in South America, and home to the world's largest continuous rainforest."
+        let trhint1 = "This country's shares its name with an american holiday's signature dish."
+        let trhint2 = "This transcontinental country straddles the border between Europe and Asia, and is known for its architecture."
+        let irhint1 = "This country is home to the largest population of Shia muslims on earth."
+        let irhint2 = "This country was once known as Persia."
+        let idhint1 = "This country is home the world's largest muslim population."
+        let idhint2 = "This country is made up of over 18,000 islands, and has the world's 2nd most populated island."
+        let ilhint1 = "This country is home to many religious sites of all 3 major monotheistic faiths. (Judaism, Christianity, Islam)"
+        let ilhint2 = "This country is home to the second highest number of Jews after the United States."
+        let gchint1 = "This country was the birthplace of the olympics"
+        let gchint2 = "This country has blue and white architecture"
+        // Hard Hints
+        let pkhint1 = "This country is known to be one of the cheapest countries on earth, and is home to the 2nd tallest mountain in the world."
+        let pkhint2 = "Urdu is the most commonly spoke language in this country."
+        let myhint1 = "This country sits on a peninsula as well as an island which it shares with 2 other countries."
+        let myhint2 = "This country borders Singapore, and is home to the Petronas Towers, which were the tallest in the world at the time."
+        let nghint1 = "This country has the fastest growing population in Africa."
+        let nghint2 = "This country is unfortunately well known for its 'prince' scammers."
+        let plhint1 = "This country is home to the world's biggest castle."
+        let plhint2 = "This country sits in Eastern Europe, and has been annexed by Germany during the World Wars."
+        let cuhint1 = "This country is the largest spanish speaking island nation in the world."
+        let cuhint2 = "This country is the only communist country in the western hemisphere."
+        let ethint1 = "This country is the oldest in Africa."
+        let ethint2 = "This country is the only country in Africa that wasn't colonized by the Europeans."
+        let fjhint1 = "This country spans over 300 islands, and is the most well known country that lies east of New Zealand."
+        let fjhint2 = "In the west, this country's name is known for a water bottling comany which uses the name."
+        let vnhint1 = "This country uses the dong as its currency."
+        let vnhint2 = "This country defeated the United States in a war in the late 1900s."
+        let mnhint1 = "This country was once the largest contiguous land empire in history."
+        let mnhint2 = "This country was the birthplace of Genghis Khan."
+        let kyhint1 = "This country is the birthplace of Swahili, and home to the second tallest mountain in Africa."
+        let kyhint2 = "This country is famous for its runners, winning events all over the globe."
+
+
+        // Function to generate a random integer between min and max (inclusive)
+        //Return a randon integer, n, such that min <= n <= max
+        //Citation: Mozilla Foundation, https://developer.mozilla.org/en-US/docs/web/JavaScript/Reference/Global_Objects/Math/random
+        //Input/Parameters: Two floating point numbers, between min and max
+        //Output/Return: Returns a random integer between min and max
+        function randomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.ceil(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Function to define question array based on difficulty level (Easy and Hard)
+        function defineQuestionArray(level) {
+            let rand;
+            let eCountry;
+            let mCountry;
+            let hCountry;
+            // Generate array of countries for easier problem set
+            if (level == 'Easy Set') { 
+                eQArray = [];
+                // Add easy difficulty countries to the question array
+                for (let i = 0; i < 3; i++) {
+                    rand = randomInt(0, easyArray.length - 1);
+                    eCountry = easyArray[rand];
+                    if (!eQArray.includes(eCountry)) {
+                        eQArray.push(eCountry);
+                    } else {
+                        i--;
+                    }
+                }
+                // Add medium difficulty countries to the question array (Each set gets 2 Medium level questions)
+                for (let i = 0; i < 2; i++) {
+                    rand = randomInt(0, mediumArray.length - 1);
+                    mCountry = mediumArray[rand];
+                    if (!eQArray.includes(mCountry)) {
+                        eQArray.push(mCountry);
+                    } else {
+                        i--;
+                    }
+                }
+                console.log(eQArray);
+            } 
+            // Generate array of countries for harder problem set
+            else if (level == 'Hard Set') { 
+                hQArray = [];
+                // Add medium difficulty countries to the question array (Each set gets 2 Medium level questions)
+                for (let i = 0; i < 2; i++) {
+                    rand = randomInt(0, mediumArray.length - 1);
+                    mCountry = mediumArray[rand];
+                    if (!hQArray.includes(mCountry)) {
+                        hQArray.push(mCountry);
+                    } else {
+                        i--;
+                    }
+                }
+                // Add hard difficulty countries to the question array
+                for (let i = 0; i < 3; i++) {
+                    rand = randomInt(0, hardArray.length - 1);
+                    hCountry = hardArray[rand];
+                    if (!hQArray.includes(hCountry)) {
+                        hQArray.push(hCountry);
+                    } else {
+                        i--;
+                    }
+                }
+                console.log(hQArray);
+            }
+        }
+
+        eArr = defineQuestionArray('Easy Set');
+        hArr = defineQuestionArray('Hard Set');
+
+        // Function to generate question for the 'Easy Set'
+        function generateQuestionE(qNum) {
+            // Call the defineQuestionArray function to set up 'Easy Set' question array (eQArray)
+            let c1 = eQArray[0];
+            let c2 = eQArray[1];
+            let c3 = eQArray[2];
+            let c4 = eQArray[3];
+            let c5 = eQArray[4];
+            hint1 = " ";
+            hint2 = " ";
+            // Organizing and structuring question 1 
+            if (qNum == 1) {
+                // Assign hints based on the country
+                if (c1 == 'canada') {
+                    hint1 = cahint1;
+                    hint2 = cahint2;
+                } else if (c1 == 'mexico') {
+                    hint1 = mxhint1;
+                    hint2 = mxhint2;
+                }
+                else if (c1 == 'france') {
+                    hint1 = frhint1
+                    hint2 = frhint2
+                }
+                else if (c1 == 'germany') {
+                    hint1 = dehint1
+                    hint2 = dehint2
+                }
+                else if (c1 == 'india') {
+                    hint1 = inhint1
+                    hint2 = inhint2
+                }
+                else if (c1 == 'china') {
+                    hint1 = cnhint1
+                    hint2 = cnhint2
+                }
+                else if (c1 == 'australia') {
+                    hint1 = auhint1
+                    hint2 = auhint2
+                }
+                else if (c1 == 'italy') {
+                    hint1 = ithint1
+                    hint2 = ithint2
+                }
+                else if (c1 == 'ireland') {
+                    hint1 = ishint1
+                    hint2 = ishint2
+                }
+                else if (c1 == 'russia') {
+                    hint1 = ruhint1
+                    hint2 = ruhint2
+                }
+                // Display question and options
+                console.log(hint1);
+                console.log(hint2);
+                questionDivId.innerHTML = "<h3>Question 1 (3 pts)</h3>" + hint1;
+                bottomMenuDivId.innerHTML = `
+            <br><input type='button' value='Hint (-2 Points)' onclick='displayHint2E(1)' class='cusButton'>
+            <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+            <input type='button' value='Check Answer' onclick='checkAnswerE(1)' class='cusButton'>
+            <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+            <div id='scoreDivId' class='cusButton'></div>
+            <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+            `;
+                scoreDivId.innerHTML = 'Points: ' + points;
+            }
+            // Organizing and structuring question 2
+            else if (qNum == 2) {
+                // Assign hints based on the country
+                if (c2 == 'canada') {
+                    hint1 = cahint1
+                    hint2 = cahint2
+                }
+                else if (c2 == 'mexico') {
+                    hint1 = mxhint1
+                    hint2 = mxhint2
+                }
+                else if (c2 == 'france') {
+                    hint1 = frhint1
+                    hint2 = frhint2
+                }
+                else if (c2 == 'germany') {
+                    hint1 = dehint1
+                    hint2 = dehint2
+                }
+                else if (c2 == 'india') {
+                    hint1 = inhint1
+                    hint2 = inhint2
+                }
+                else if (c2 == 'china') {
+                    hint1 = cnhint1
+                    hint2 = cnhint2
+                }
+                else if (c2 == 'australia') {
+                    hint1 = auhint1
+                    hint2 = auhint2
+                }
+                else if (c2 == 'italy') {
+                    hint1 = ithint1
+                    hint2 = ithint2
+                }
+                else if (c2 == 'ireland') {
+                    hint1 = ishint1
+                    hint2 = ishint2
+                }
+                else if (c2 == 'russia') {
+                    hint1 = ruhint1
+                    hint2 = ruhint2
+                }
+                // Display question and options
+                questionDivId.innerHTML = "<h3>Question 2 (3 pts)</h3>" + hint1
+                bottomMenuDivId.innerHTML = `
+                <br><input type='button' value='Hint (-2 Points)' onclick='displayHint2E(2)' class='cusButton'>
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerE(2)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            // Organizing and structuring question 3
+            else if (qNum == 3) {
+                // Assign hints based on the country
+                if (c3 == 'canada') {
+                    hint1 = cahint1
+                    hint2 = cahint2
+                }
+                else if (c3 == 'mexico') {
+                    hint1 = mxhint1
+                    hint2 = mxhint2
+                }
+                else if (c3 == 'france') {
+                    hint1 = frhint1
+                    hint2 = frhint2
+                }
+                else if (c3 == 'germany') {
+                    hint1 = dehint1
+                    hint2 = dehint2
+                }
+                else if (c3 == 'india') {
+                    hint1 = inhint1
+                    hint2 = inhint2
+                }
+                else if (c3 == 'china') {
+                    hint1 = cnhint1
+                    hint2 = cnhint2
+                }
+                else if (c3 == 'australia') {
+                    hint1 = auhint1
+                    hint2 = auhint2
+                }
+                else if (c3 == 'italy') {
+                    hint1 = ithint1
+                    hint2 = ithint2
+                }
+                else if (c3 == 'ireland') {
+                    hint1 = ishint1
+                    hint2 = ishint2
+                }
+                else if (c3 == 'russia') {
+                    hint1 = ruhint1
+                    hint2 = ruhint2
+                }
+                // Display question and options
+                questionDivId.innerHTML = "<h3>Question 3 (3 pts)</h3>" + hint1
+                bottomMenuDivId.innerHTML = `
+                <br><input type='button' value='Hint (-2 Points)' onclick='displayHint2E(3)' class='cusButton'>
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerE(3)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            // Organizing and structuring question 4
+            else if (qNum == 4) {
+                // Assign hints based on the country
+                if (c4 == 'spain') {
+                    hint1 = eshint1
+                    hint2 = eshint2
+                }
+                else if (c4 == 'morocco') {
+                    hint1 = mahint1
+                    hint2 = mahint2
+                }
+                else if (c4 == 'egypt') {
+                    hint1 = eghint1
+                    hint2 = eghint2
+                }
+                else if (c4 == 'japan') {
+                    hint1 = jphint1
+                    hint2 = jphint2
+                }
+                else if (c4 == 'brazil') {
+                    hint1 = brhint1
+                    hint2 = brhint2
+                }
+                else if (c4 == 'turkey') {
+                    hint1 = trhint1
+                    hint2 = trhint2
+                }
+                else if (c4 == 'iran') {
+                    hint1 = irhint1
+                    hint2 = irhint2
+                }
+                else if (c4 == 'indonesia') {
+                    hint1 = idhint1
+                    hint2 = idhint2
+                }
+                else if (c4 == 'israel'){
+                    hint1 = ilhint1
+                    hint2 = ilhint2
+                }
+                else if (c4 == 'greece') {
+                    hint1 = gchint1
+                    hint2 = gchint2
+                }
+                // Display question and options
+                questionDivId.innerHTML = "<h3>Question 4 (4 pts)</h3>" + hint1
+                bottomMenuDivId.innerHTML = `
+                <br><input type='button' value='Hint (-2 Points)' onclick='displayHint2E(4)' class='cusButton'>
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerE(4)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            // Organizing and structuring question 5
+            else if (qNum == 5) {
+                // Assign hints based on the country
+                if (c5 == 'spain') {
+                    hint1 = eshint1
+                    hint2 = eshint2
+                }
+                else if (c5 == 'morocco') {
+                    hint1 = mahint1
+                    hint2 = mahint2
+                }
+                else if (c5 == 'egypt') {
+                    hint1 = eghint1
+                    hint2 = eghint2
+                }
+                else if (c5 == 'japan') {
+                    hint1 = jphint1
+                    hint2 = jphint2
+                }
+                else if (c5 == 'brazil') {
+                    hint1 = brhint1
+                    hint2 = brhint2
+                }
+                else if (c5 == 'turkey') {
+                    hint1 = trhint1
+                    hint2 = trhint2
+                }
+                else if (c5 == 'iran') {
+                    hint1 = irhint1
+                    hint2 = irhint2
+                }
+                else if (c5 == 'indonesia') {
+                    hint1 = idhint1
+                    hint2 = idhint2
+                }
+                else if (c5 == 'israel'){
+                    hint1 = ilhint1
+                    hint2 = ilhint2
+                }
+                else if (c5 == 'greece') {
+                    hint1 = gchint1
+                    hint2 = gchint2
+                }
+                // Display question and options
+                questionDivId.innerHTML = "<h3>Question 5 (4 pts)</h3>" + hint1
+                bottomMenuDivId.innerHTML = `
+                <br><input type='button' value='Hint (-2 Points)' onclick='displayHint2E(5)' class='cusButton'>
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerE(5)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+        }
+
+        // Function to generate question for the 'Hard Set'
+        function generateQuestionH(qNum) {
+            // Call the defineQuestionArray function to set up 'Hard Set' question array (hQArray)
+            let c1 = hQArray[0]
+            let c2 = hQArray[1]
+            let c3 = hQArray[2]
+            let c4 = hQArray[3]
+            let c5 = hQArray[4]
+            hint1 = ""
+            hint2 = ""
+            // Organizing and structuring question 1
+            if (qNum == 1) {
+                // Assign hints based on the country
+                if (c1 == 'spain') {
+                    hint1 = eshint1
+                    hint2 = eshint2
+                }
+                else if (c1 == 'morocco') {
+                    hint1 = mahint1
+                    hint2 = mahint2
+                }
+                else if (c1 == 'egypt') {
+                    hint1 = eghint1
+                    hint2 = eghint2
+                }
+                else if (c1 == 'japan') {
+                    hint1 = jphint1
+                    hint2 = jphint2
+                }
+                else if (c1 == 'brazil') {
+                    hint1 = brhint1
+                    hint2 = brhint2
+                }
+                else if (c1 == 'turkey') {
+                    hint1 = trhint1
+                    hint2 = trhint2
+                }
+                else if (c1 == 'iran') {
+                    hint1 = irhint1
+                    hint2 = irhint2
+                }
+                else if (c1 == 'indonesia') {
+                    hint1 = idhint1
+                    hint2 = idhint2
+                }
+                else if (c1 == 'israel'){
+                    hint1 = ilhint1
+                    hint2 = ilhint2
+                }
+                else if (c1 == 'greece') {
+                    hint1 = gchint1
+                    hint2 = gchint2
+                }
+                // Display question and options
+                questionDivId.innerHTML = "<h3>Question 1 (4 pts)</h3>" + hint1
+                bottomMenuDivId.innerHTML = `
+                <br><input type='button' value='Hint (-2 Points)' onclick='displayHint2H(1)' class='cusButton'>
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerH(1)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            // Organizing and structuring question 2
+            else if (qNum == 2) {
+                // Assign hints based on the country
+                if (c2 == 'spain') {
+                    hint1 = eshint1
+                    hint2 = eshint2
+                }
+                else if (c2 == 'morocco') {
+                    hint1 = mahint1
+                    hint2 = mahint2
+                }
+                else if (c2 == 'egypt') {
+                    hint1 = eghint1
+                    hint2 = eghint2
+                }
+                else if (c2 == 'japan') {
+                    hint1 = jphint1
+                    hint2 = jphint2
+                }
+                else if (c2 == 'brazil') {
+                    hint1 = brhint1
+                    hint2 = brhint2
+                }
+                else if (c2 == 'turkey') {
+                    hint1 = trhint1
+                    hint2 = trhint2
+                }
+                else if (c2 == 'iran') {
+                    hint1 = irhint1
+                    hint2 = irhint2
+                }
+                else if (c2 == 'indonesia') {
+                    hint1 = idhint1
+                    hint2 = idhint2
+                }
+                else if (c2 == 'israel'){
+                    hint1 = ilhint1
+                    hint2 = ilhint2
+                }
+                else if (c2 == 'greece') {
+                    hint1 = gchint1
+                    hint2 = gchint2
+                }
+                // Display question and options
+                questionDivId.innerHTML = "<h3>Question 2 (4 pts)</h3>" + hint1
+                bottomMenuDivId.innerHTML = `
+                <br><input type='button' value='Hint (-2 Points)' onclick='displayHint2H(2)' class='cusButton'>
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerH(2)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            // Organizing and structuring question 3
+            else if (qNum == 3) {
+                // Assign hints based on the country
+                if (c3 == 'pakistan') {
+                    hint1 = pkhint1
+                    hint2 = pkhint2
+                }
+                else if (c3 == 'malaysia') {
+                    hint1 = myhint1
+                    hint2 = myhint2
+                }
+                else if (c3 == 'nigeria') {
+                    hint1 = nghint1
+                    hint2 = nghint2
+                }
+                else if (c3 == 'poland') {
+                    hint1 = plhint1
+                    hint2 = plhint2
+                }
+                else if (c3 == 'cuba') {
+                    hint1 = cuhint1
+                    hint2 = cuhint2
+                }
+                else if (c3 == 'ethiopia') {
+                    hint1 = ethint1
+                    hint2 = ethint2
+                }
+                else if (c3 == 'fiji') {
+                    hint1 = fjhint1
+                    hint2 = fjhint2
+                }
+                else if (c3 == 'vietnam') {
+                    hint1 = vnhint1
+                    hint2 = vnhint2
+                }
+                else if (c3 == 'mongolia') {
+                    hint1 = mnhint1
+                    hint2 = mnhint2
+                }
+                else if (c3 == 'kenya'){
+                    hint1 = kyhint1
+                    hint2 = kyhint2
+                }
+                // Display question and options
+                questionDivId.innerHTML = "<h3>Question 3 (5 pts)</h3>" + hint1
+                bottomMenuDivId.innerHTML = `
+                <br><input type='button' value='Hint (-2 Points)' onclick='displayHint2H(3)' class='cusButton'>
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerH(3)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            // Organizing and structuring question 4
+            else if (qNum == 4) {
+                // Assign hints based on the country
+                if (c4 == 'pakistan') {
+                    hint1 = pkhint1
+                    hint2 = pkhint2
+                }
+                else if (c4 == 'malaysia') {
+                    hint1 = myhint1
+                    hint2 = myhint2
+                }
+                else if (c4 == 'nigeria') {
+                    hint1 = nghint1
+                    hint2 = nghint
+                }
+                else if (c4 == 'poland') {
+                    hint1 = plhint1
+                    hint2 = plhint2
+                }
+                else if (c4 == 'cuba') {
+                    hint1 = cuhint1
+                    hint2 = cuhint2
+                }
+                else if (c4 == 'ethiopia') {
+                    hint1 = ethint1
+                    hint2 = ethint2
+                }
+                else if (c4 == 'fiji') {
+                    hint1 = fjhint1
+                    hint2 = fjhint2
+                }
+                else if (c4 == 'vietnam') {
+                    hint1 = vnhint1
+                    hint2 = vnhint2
+                }
+                else if (c4 == 'mongolia') {
+                    hint1 = mnhint1
+                    hint2 = mnhint2
+                }
+                else if (c4 == 'kenya'){
+                    hint1 = kyhint1
+                    hint2 = kyhint2
+                }
+                // Display question and options
+                questionDivId.innerHTML = "<h3>Question 4 (5 pts)</h3>" + hint1
+                bottomMenuDivId.innerHTML = `
+                <br><input type='button' value='Hint (-2 Points)' onclick='displayHint2H(4)' class='cusButton'>
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerH(4)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            // Organizing and structuring question 5
+            else if (qNum == 5) {
+                // Assign hints based on the country
+                if (c5 == 'pakistan') {
+                    hint1 = pkhint1
+                    hint2 = pkhint2
+                }
+                else if (c5 == 'malaysia') {
+                    hint1 = myhint1
+                    hint2 = myhint2
+                }
+                else if (c5 == 'nigeria') {
+                    hint1 = nghint1
+                    hint2 = nghint2
+                }
+                else if (c5 == 'poland') {
+                    hint1 = plhint1
+                    hint2 = plhint2
+                }
+                else if (c5 == 'cuba') {
+                    hint1 = cuhint1
+                    hint2 = cuhint2
+                }
+                else if (c5 == 'ethiopia') {
+                    hint1 = ethint1
+                    hint2 = ethint2
+                }
+                else if (c5 == 'fiji') {
+                    hint1 = fjhint1
+                    hint2 = fjhint2
+                }
+                else if (c5 == 'vietnam') {
+                    hint1 = vnhint1
+                    hint2 = vnhint2
+                }
+                else if (c5 == 'mongolia') {
+                    hint1 = mnhint1
+                    hint2 = mnhint2
+                }
+                else if (c5 == 'kenya'){
+                    hint1 = kyhint1
+                    hint2 = kyhint2
+                }
+                // Display question and options
+                questionDivId.innerHTML = "<h3>Question 5 (5 pts)</h3>" + hint1
+                bottomMenuDivId.innerHTML = `
+                <br><input type='button' value='Hint (-2 Points)' onclick='displayHint2H(5)' class='cusButton'>
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerH(5)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+        }
+
+        // Function to display additinal hint (hint2) for given question in 'Easy Set'
+        function displayHint2E(qNum) {
+            points -= 2 // Remove points for cost of additional hint
+            questionDivId.innerHTML += '<br>' + hint2 + '<br><br>'
+            // Display buttons with routes to appropriate functions based on question number
+            if (qNum == 1) {
+                bottomMenuDivId.innerHTML = `
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerE(1)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            else if (qNum == 2) {
+                bottomMenuDivId.innerHTML = `
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerE(2)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            else if (qNum == 3) {
+                bottomMenuDivId.innerHTML = `
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerE(3)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            else if (qNum == 4) {
+                bottomMenuDivId.innerHTML = `
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerE(4)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            else if (qNum == 5) {
+                bottomMenuDivId.innerHTML = `
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerE(5)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+        }
+
+        // Function to display additinal hint (hint2) for given question in 'Hard Set'
+        function displayHint2H(qNum) { 
+            points -= 2 // Remove points for cost of additional hint
+            questionDivId.innerHTML += '<br>' + hint2 + '<br><br>'
+            // Display buttons with routes to appropriate functions based on question number
+            if (qNum == 1) {
+                bottomMenuDivId.innerHTML = `
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerH(1)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            else if (qNum == 2) {
+                bottomMenuDivId.innerHTML = `
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerH(2)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            else if (qNum == 3) {
+                bottomMenuDivId.innerHTML = `
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerH(3)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            else if (qNum == 4) {
+                bottomMenuDivId.innerHTML = `
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerH(4)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+            else if (qNum == 5) {
+                bottomMenuDivId.innerHTML = `
+                <input type='text' id='inputTextId' placeholder='Enter Answer' class='customTextbox'>
+                <input type='button' value='Check Answer' onclick='checkAnswerH(5)' class='cusButton'>
+                <br><br><input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+                <div id='scoreDivId' class='cusButton'></div>
+                <input type='button' value='Quit Game' onclick='window.location.reload()' class='cusButton'>
+                `
+                scoreDivId.innerHTML = 'Points: ' + points
+            }
+        }
+
+        // Function to check answer for given input for each question in 'Easy Set'
+        function checkAnswerE(qNum) {
+            let inpAns = inputTextId.value.toLowerCase() // Convert all inputted characters to lowercase for case insensetivity
+            console.log(inpAns)
+            // Check answer based on input for each question by checking if input matches country array (eArr), and output appropriate message and menu options based on result
+            if (qNum == 1) {
+                if (inpAns == eQArray[0]) {
+                    points += 3
+                    questionDivId.innerHTML = "Correct!<br><br>"
+                    bottomMenuDivId.innerHTML = `<input type='button' value='Next Question' onclick='generateQuestionE(2)' class='cusButton'>
+                    <div id='scoreDivId' class='cusButton'></div>
+                    <input type='button' value='Toggle Instructions' onclick='instructions()' class='cusButton'>
+                    `
+                    scoreDivId.innerHTML = 'Points: ' + points
+                }
+                else {
+                    questionDivId.innerHTML = "Your answer was Incorrect. The correct answer was:<br>" + '<h2>' + eQArray[0].toUpperCase() + '<h2> '
+                    bottomMenuDivId.innerHTML = " <input type='button' value='Main Menu' onclick='window.location.reload()' class='cusButton'>"
+                }
+            }
+            else if (qNum == 2) {
+                if (inpAns == eQArray[1]) {
+                    points += 3
+                    questionDivId.innerHTML = "Correct!<br><br>"
+                    bottomMenuDivId.innerHTML = `<input type='button' value='Next Question' onclick='generateQuestionE(3)' class='cusButton'>
+                    <div id='scoreDivId' class='cusButton'></div>
+                    <input type='button' value='Toggle Instructions' onclick='instructions()' class='cusButton'>
+                    `
+                    scoreDivId.innerHTML = 'Points: ' + points
+                }
+                else {
+                    questionDivId.innerHTML = "Your answer was Incorrect. The correct answer was:<br>" + '<h2>' + eQArray[1].toUpperCase() + '<h2>'
+                    bottomMenuDivId.innerHTML = " <input type='button' value='Main Menu' onclick='window.location.reload()' class='cusButton'>"
+                }
+            }
+            else if (qNum == 3) {
+                if (inpAns == eQArray[2]) {
+                    points += 3
+                    questionDivId.innerHTML = "Correct!<br><br>"
+                    bottomMenuDivId.innerHTML = `<input type='button' value='Next Question' onclick='generateQuestionE(4)' class='cusButton'>
+                    <div id='scoreDivId' class='cusButton'></div>
+                    <input type='button' value='Toggle Instructions' onclick='instructions()' class='cusButton'>
+                    `
+                    scoreDivId.innerHTML = 'Points: ' + points
+                }
+                else {
+                    questionDivId.innerHTML = "Your answer was Incorrect. The correct answer was:<br>" + '<h2>' + eQArray[2].toUpperCase() + '<h2>'
+                    bottomMenuDivId.innerHTML = " <input type='button' value='Main Menu' onclick='window.location.reload()' class='cusButton'>"
+                }
+            }
+            else if (qNum == 4) {
+                if (inpAns == eQArray[3]) {
+                    points += 4
+                    questionDivId.innerHTML = "Correct!<br><br>"
+                    bottomMenuDivId.innerHTML = `<input type='button' value='Next Question' onclick='generateQuestionE(5)' class='cusButton'>
+                    <div id='scoreDivId' class='cusButton'></div>
+                    <input type='button' value='Toggle Instructions' onclick='instructions()' class='cusButton'>
+                    `
+                    scoreDivId.innerHTML = 'Points: ' + points
+                }
+                else {
+                    questionDivId.innerHTML = "Your answer was Incorrect. The correct answer was:<br>" + '<h2>' + eQArray[3].toUpperCase() + '<h2>'
+                    bottomMenuDivId.innerHTML = " <input type='button' value='Main Menu' onclick='window.location.reload()' class='cusButton'>"
+                }
+            }
+            else if (qNum == 5) {
+                if (inpAns == eQArray[4]) {
+                    points += 4
+                    questionDivId.innerHTML = "Correct!<br><br>"
+                    bottomMenuDivId.innerHTML = `<input type='button' value='View Results' onclick='viewResultE()' class='cusButton'>
+                    <div id='scoreDivId' class='cusButton'></div>
+                    <input type='button' value='Toggle Instructions' onclick='instructions()' class='cusButton'>
+                    `
+                    scoreDivId.innerHTML = 'Points: ' + points
+                }
+                else {
+                    questionDivId.innerHTML = "Your answer was Incorrect. The correct answer was:<br>" + '<h2>' + eQArray[4].toUpperCase() + '<h2>'
+                    bottomMenuDivId.innerHTML = " <input type='button' value='Main Menu' onclick='window.location.reload()' class='cusButton'>"
+                }
+            }
+        }
+
+        // Function to check answer for given input for each question in 'Hard Set'
+        function checkAnswerH(qNum) {
+            let inpAns = inputTextId.value.toLowerCase() // Convert all inputted characters to lowercase for case insensetivity
+            console.log(inpAns)
+            // Check answer based on input for each question by checking if input matches country array (hArr), and output appropriate message and menu options based on result
+            if (qNum == 1) {
+                if (inpAns == hQArray[0]) {
+                    points += 4
+                    questionDivId.innerHTML = "Correct!<br><br>"
+                    bottomMenuDivId.innerHTML = `<input type='button' value='Next Question' onclick='generateQuestionH(2)' class='cusButton'>
+                    <div id='scoreDivId' class='cusButton'></div>
+                    <input type='button' value='Toggle Instructions' onclick='instructions()' class='cusButton'>
+                    `
+                    scoreDivId.innerHTML = 'Points: ' + points
+                }
+                else {
+                    questionDivId.innerHTML = "Your answer was Incorrect. The correct answer was:<br>" + '<h2>' + hQArray[0].toUpperCase() + '<h2>'
+                    bottomMenuDivId.innerHTML = " <input type='button' value='Main Menu' onclick='window.location.reload()' class='cusButton'>"
+                }
+            }
+            else if (qNum == 2) {
+                if (inpAns == hQArray[1]) {
+                    points += 4
+                    questionDivId.innerHTML = "Correct!<br><br>"
+                    bottomMenuDivId.innerHTML = `<input type='button' value='Next Question' onclick='generateQuestionH(3)' class='cusButton'>
+                    <div id='scoreDivId' class='cusButton'></div>
+                    <input type='button' value='Toggle Instructions' onclick='instructions()' class='cusButton'>
+                    `
+                    scoreDivId.innerHTML = 'Points: ' + points
+                }
+                else {
+                    questionDivId.innerHTML = "Your answer was Incorrect. The correct answer was:<br>" + '<h2>' + hQArray[1].toUpperCase() + '<h2>'
+                    bottomMenuDivId.innerHTML = " <input type='button' value='Main Menu' onclick='window.location.reload()' class='cusButton'>"
+                }
+            }
+            else if (qNum == 3) {
+                if (inpAns == hQArray[2]) {
+                    points += 5
+                    questionDivId.innerHTML = "Correct!<br><br>"
+                    bottomMenuDivId.innerHTML = `<input type='button' value='Next Question' onclick='generateQuestionH(4)' class='cusButton'>
+                    <div id='scoreDivId' class='cusButton'></div>
+                    <input type='button' value='Toggle Instructions' onclick='instructions()' class='cusButton'>
+                    `
+                    scoreDivId.innerHTML = 'Points: ' + points
+                }
+                else {
+                    questionDivId.innerHTML = "Your answer was Incorrect. The correct answer was:<br>" + '<h2>' + hQArray[2].toUpperCase() + '<h2>'
+                    bottomMenuDivId.innerHTML = " <input type='button' value='Main Menu' onclick='window.location.reload()' class='cusButton'>"
+                }
+            }
+            else if (qNum == 4) {
+                if (inpAns == hQArray[3]) {
+                    points += 5
+                    questionDivId.innerHTML = "Correct!<br><br>"
+                    bottomMenuDivId.innerHTML = `<input type='button' value='Next Question' onclick='generateQuestionH(5)' class='cusButton'>
+                    <div id='scoreDivId' class='cusButton'></div>
+                    <input type='button' value='Toggle Instructions' onclick='instructions()' class='cusButton'>
+                    `
+                    scoreDivId.innerHTML = 'Points: ' + points
+                }
+                else {
+                    questionDivId.innerHTML = "Your answer was Incorrect. The correct answer was:<br>" + '<h2>' + hQArray[3].toUpperCase() + '<h2>'
+                    bottomMenuDivId.innerHTML = " <input type='button' value='Main Menu' onclick='window.location.reload()' class='cusButton'>"
+                }
+            }
+            else if (qNum == 5) {
+                if (inpAns == hQArray[4]) {
+                    points += 5
+                    questionDivId.innerHTML = "Correct!<br><br>"
+                    bottomMenuDivId.innerHTML = `<input type='button' value='View Results' onclick='viewResultH()' class='cusButton'>
+                    <div id='scoreDivId' class='cusButton'></div>
+                    <input type='button' value='Toggle Instructions' onclick='instructions()' class='cusButton'>
+                    `
+                    scoreDivId.innerHTML = 'Points: ' + points
+                }
+                else {
+                    questionDivId.innerHTML = "Your answer was Incorrect. The correct answer was:<br>" + '<h2>' + hQArray[4].toUpperCase() + '<h2>'
+                    bottomMenuDivId.innerHTML = " <input type='button' value='Main Menu' onclick='window.location.reload()' class='cusButton'>"
+                }
+            }
+        }
+
+        // Function to display results at end of quiz for 'Easy Set'
+        function viewResultE() {
+            questionDivId.innerHTML = "Congratulations on completing the quiz! Your score is " + points + "/17. Click 'Play Again' to play again."
+            bottomMenuDivId.innerHTML = `<input type="button" value="Play Again" onclick="window.location.reload()" class="cusButton">`
+        }
+
+        // Function to display results at end of quiz for 'Hard Set'
+        function viewResultH() {
+            questionDivId.innerHTML = "Congratulations on completing the quiz! Your score is " + points + "/23. Click 'Play Again' to play again."
+            bottomMenuDivId.innerHTML = `<input type="button" value="Play Again" onclick="window.location.reload()" class="cusButton">`
+        }
+
+        // Global boolean variable defined at the beginning to establish toggle state; used in instructions() function
+        let toggle = false
+
+        // Function to toggle instructions
+        function instructions() {
+            instructionDivId.innerHTML = ""
+            // Display instructions based on toggle state; State altered whenever 'Toggle Instructions' button is clicked
+            if (toggle == false) {
+                instructionDivId.innerHTML = `
+                Each trivia set contains 5 randomly generated questions of the specified difficulty. The points earned is based upon the diffuculty of the question.<br>
+                When a question loads, a fact about a country will be shown, along with its point value. An additional hint will cost 2 points, so use them wisely. If<br>
+                an incorrect answer is inputted, the game ends, and the total amount of points earned will be displayed. The maximum amount of points a player <br>
+                can earn in the easy set is 17, and 23 in the hard set. Also, any country with multiple words in its name such as the U.S. or U.K. is NOT a part of <br>
+                the quiz. Good luck, and have fun!
+                `
+                toggle = true
+            }
+            else if (toggle == true) {
+                instructionDivId.innerHTML = ""
+                toggle = false
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Country Trivia!</h1>
+    <img src="images/cover2.png" height="500" width="500"><!-- image source: https://www.google.com/imgres?imgurl=https://content.presentermedia.com/files/clipart/00007000/7670/country_flags_of_the_world_800_wht.jpg&tbnid=B2scmpE8xy5M4M&vet=1&imgrefurl=https://www.formasup.fr/?k%3Dflags-of-the-world-earth-country-united-states-flag-ii-DB91YwCK&docid=csmoHpIfrFflnM&w=800&h=750&itg=1&source=sh/x/im/m1/1&kgs=641c84421c5a7694&shem=trie -->
+    <h4>
+        <div id="questionDivId"></div>
+    </h4>
+    <div id="bottomMenuDivId">
+        <input type="button" value="Start (Easy Set)" onclick="generateQuestionE(1)" class="cusButton">
+        <input type="button" value="Toggle Instructions" onclick="instructions()" class="cusButton">
+        <input type="button" value="Start (Hard Set)" onclick="generateQuestionH(1)" class="cusButton">
+    </div><br>
+    <h3>
+        <div id="instructionDivId"></div>
+    </h3>
+</body>
+
+</html>
