@@ -1,0 +1,11 @@
+# IntelliJ IDEA settings and build output
+.idea/
+out/
+*.iml
+*.class
+
+# OS
+.DS_Store
+
+# Secrets (each project also has its own .gitignore)
+.env

@@ -1,0 +1,87 @@
+:root {
+  --color-bg: #f4eee7;
+  --color-surface: rgba(255, 252, 247, 0.92);
+  --color-surface-strong: #fffdf9;
+  --color-ink: #213547;
+  --color-ink-soft: #395166;
+  --color-muted: #6f7d88;
+  --color-border: rgba(33, 53, 71, 0.12);
+  --font-display: "Sora", "Avenir Next", "Trebuchet MS", sans-serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+
+  color: var(--color-ink-soft);
+  background:
+    radial-gradient(circle at top, rgba(249, 115, 22, 0.12), transparent 28%),
+    linear-gradient(180deg, #faf5ef 0%, #f4eee7 100%);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-body);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 4vw, 4.5rem);
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+h3 {
+  font-size: 1.05rem;
+}
+
+p {
+  color: var(--color-ink-soft);
+}
+
+a {
+  color: inherit;
+}
