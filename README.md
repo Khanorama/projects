@@ -4,6 +4,7 @@ In this repository, you can find all of the projects that I have worked on over 
 
 | Project | What it is | Built with |
 |---|---|---|
+| [LeapCode](https://leapcode.org) | A free coding school I founded and run with a four-person team: live online courses in Python, Java and AI/ML, a resource library, and coding competitions. I built the platform and curricula, and have taught 120+ students Python and machine learning across 11 cohorts ([website source](https://github.com/Khanorama/khanorama.github.io)) | HTML, CSS, JavaScript, Vercel |
 | [PathFinder](PathFinder) | Team project (4 people): a web app that finds real local volunteer and internship opportunities for students, ranks them with AI, and drafts outreach emails in one click. I built the backend (web search, scraping and AI) and have kept developing it since | React, FastAPI (Python), OpenAI API |
 | [SnapCook](SnapCook) | Mobile app that detects ingredients in a photo and suggests healthy recipes you can make with them, plus an AI chef chat ([demo video](https://www.youtube.com/watch?v=vym1n1f9fgc)) | React Native, Expo, Roboflow, Gemini API |
 | [LeafLens](LeafLens) | Team project (3 people): a plant app that identifies plants and detects diseases from a photo, with scan history, plant search, a community feed and a map. I built the AI scan and scan history | React Native, Expo Router, Supabase, Plant.id API |
@@ -13,6 +14,8 @@ In this repository, you can find all of the projects that I have worked on over 
 | [Video Games](JavaProjects/VideoGames) | Interactive console games built on a class hierarchy (`VideoGame` → `RobloxGame` → `Deepwoken`, and `Minecraft`) to practise inheritance and polymorphism | Java |
 
 ## Running the projects
+
+**LeapCode:** live at [leapcode.org](https://leapcode.org).
 
 **PathFinder:** see [PathFinder/README.md](PathFinder/README.md).
 
