@@ -4,7 +4,7 @@ In this repository, you can find all of the projects that I have worked on over 
 
 | Project | What it is | Built with |
 |---|---|---|
-| [PathFinder](PathFinder) | Web app that finds real local volunteer and internship opportunities for students, ranks them with AI, and drafts outreach emails in one click | React, FastAPI (Python), OpenAI API |
+| [PathFinder](PathFinder) | Team project (4 people): a web app that finds real local volunteer and internship opportunities for students, ranks them with AI, and drafts outreach emails in one click. I built the backend (web search, scraping and AI) and have kept developing it since | React, FastAPI (Python), OpenAI API |
 | [SnapCook](SnapCook) | Mobile app that detects ingredients in a photo and suggests healthy recipes you can make with them, plus an AI chef chat ([demo video](https://www.youtube.com/watch?v=vym1n1f9fgc)) | React Native, Expo, Roboflow, Gemini API |
 | [LeafLens](LeafLens) | Team project (3 people): a plant app that identifies plants and detects diseases from a photo, with scan history, plant search, a community feed and a map. I built the AI scan and scan history | React Native, Expo Router, Supabase, Plant.id API |
 | [Country Trivia](JS_Projects/APCSPptproject.html) | AP Computer Science Principles project: a browser quiz on countries with easy and hard modes, hints, and a results screen | HTML, CSS, JavaScript |

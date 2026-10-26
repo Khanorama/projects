@@ -6,6 +6,16 @@ internship opportunities near them. It searches the web based on the student's
 profile, ranks what it finds with AI, drafts outreach emails in one click, and
 rewards progress with XP and levels.
 
+**Team project.** PathFinder started as a project with three other students.
+Teammates set up the original React frontend (page layouts and styling) and an
+early resume PDF reader.
+
+**My part:** the backend: the FastAPI server, the scraper that turns a student's
+profile into web searches, and the AI ranking, email drafting and resume parsing.
+I also connected the frontend to it (the Dashboard's live search and the saved
+profile). Since then I've kept developing it on my own: I replaced sign-in with a
+simple welcome form, added Word resume support, and fixed bugs in search and XP.
+
 **Tech stack:** React 19 + Vite (frontend) · FastAPI + Python (backend) ·
 OpenAI GPT-4o-mini · `ddgs` web search · BeautifulSoup
 
