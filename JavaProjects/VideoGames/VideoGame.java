@@ -1,5 +1,5 @@
 package JavaProjects.VideoGames;/*
-Aayan Syed, Ayaan Khan
+Ayaan Khan
 Denna
 Period: 8
 
